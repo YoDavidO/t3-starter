@@ -18,6 +18,9 @@
     "noUncheckedIndexedAccess": true,
     "sourceMap": true,
     "outDir": "dist",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

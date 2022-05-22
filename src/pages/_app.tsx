@@ -1,10 +1,25 @@
+import { withTRPC } from "@trpc/next";
 import type { AppProps } from 'next/app'
-import { globalStyles } from '../styles/stitches.config';
+import { AppRouter } from "@/pages/api/trpc/[trpc]";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  globalStyles();
-
   return <Component {...pageProps} />
 }
 
-export default MyApp
+function getBaseUrl() {
+  if (process.browser) return "";
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+
+  return `http://localhost:${process.env.PORT ?? 3000}`;
+}
+
+export default withTRPC<AppRouter>({
+  config({ctx}) {
+    const url = `${getBaseUrl()}/api/trpc`;
+    
+    return {
+      url
+    };
+  },
+  ssr: true,
+})(MyApp);
