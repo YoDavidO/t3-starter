@@ -1,3 +1,4 @@
+import superjson from 'superjson';
 import { withTRPC } from "@trpc/next";
 import type { AppProps } from 'next/app'
 import { AppRouter } from "@/pages/api/trpc/[trpc]";
@@ -18,7 +19,8 @@ export default withTRPC<AppRouter>({
     const url = `${getBaseUrl()}/api/trpc`;
     
     return {
-      url
+      url,
+      transformer: superjson
     };
   },
   ssr: false,
